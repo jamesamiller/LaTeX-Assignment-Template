@@ -4,12 +4,14 @@
 % 08/18/2015, 04/12/2023
 %
 % Uses the exam document class with some common math packages
-%   and some convenient custom commands.
+%   and convenient custom macros.
+% See exam class documentation for more question formats.
+% Show answers by uncommenting the `\printanswers` statement after
+%   `\begin{document}`.
 
 %%%%%%%%%% PREAMBLE %%%%%%%%%%
 
-\documentclass[11pt, addpoints, answers]{exam}
-%\documentclass[11pt, addpoints]{exam}
+\documentclass[11pt, addpoints]{exam}
 
 % fonts
 \usepackage{mathpazo}
@@ -63,9 +65,10 @@
 \usepackage{siunitx}
 \usepackage{esvect} % for vectors with arrows (option for bold below)
 
+% some useful macros
 %     define \myqty
 %     enclose math expression with autosized (), [], or {}.
-%       For example, \myqty(\frac{1}{2})
+%     For example, \myqty(\frac{1}{2})
 \newcommand{\DeclareAutoPairedDelimiter}[3]{%
   \expandafter\DeclarePairedDelimiter\csname Auto\string#1\endcsname{#2}{#3}%
   \begingroup\edef\x{\endgroup
@@ -127,9 +130,17 @@
 \pointformat{\boldmath\themarginpoints}
 \bracketedpoints
 
+% for true/false questions
+\newcommand{\tf}[1][{}]{%
+    \fillin[#1][0.25in]% 
+    }
+
 %%%%%%%%%% DOCUMENT %%%%%%%%%%
 
 \begin{document}
+
+% comment out to hide answers
+%\printanswers
 
 \thispagestyle{empty}
 
@@ -141,8 +152,8 @@ Name:\rule{.5\textwidth}{1pt}\par
 	\centering
 	%\includegraphics[width=1cm]{logo} \par
 	The University of Alabama in Huntsville\par
-	PH 652 \quad Quantum Mechanics II \par
-	\underline{Homework Assignment 10-1} \par
+	Course number \quad Course title \par
+	\underline{Homework Assignment/Exam XX} \par
 \end{minipage}
 
 \begin{center}
@@ -161,21 +172,18 @@ Name:\rule{.5\textwidth}{1pt}\par
 
 \begin{questions}
 
-% See exam class documentation for more question formats, 
-% such as multiple choice, fill in the blank, etc.
-
-%------------ Question with parts ---------------------------------------------
+%------------ Question with parts ---------------------------------------
 \question \label{ques:questionparts}
-This is some text and maybe math.
+This is a question with multiple parts. Add or subract as needed. Of course, questions and solutions can have math formulae. Solutions are printed if \textsf{$\backslash$printanswers} is uncommented after the beginning of the document.
 
 \begin{parts}
-\part[5]\label{ques:parta} The first part.
+\part[5]\label{ques:parta} The first part of the question.
 \droppoints
 
 \part[15]\label{ques:partb} The second part.
 \droppoints
 
-\part[5]\label{ques:partc} The third part.
+\part[5]\label{ques:partc} The third part. Add or subtract parts as needed.
 \droppoints
 \end{parts}
 \droptotalpoints
@@ -191,34 +199,114 @@ The solution goes here.
 \part The solution goes here.
 \end{parts}
 \end{solution}
+% --------------------------------------------------------------------------
 
 
 %------------ Question with no parts ------------------------------------------
 \question[5] \label{ques:questionnoparts}
-Problem 10-1.
+This is a question with no parts.
 \droppoints
 
 \begin{solution}
-Solution to the question.
+Solution to the question with no parts.
 \end{solution}
+% --------------------------------------------------------------------------
 
 
 %------------ Question with multiple choice ----------------------------------
 \question[10] \label{ques:questionmc}
-What is Newton's Second Law?
+There are many question formats we can use. Here is a multiple choice. The correct answer is noted in the options, and will be printed when the solutions are enabled. Here's the question: What is Newton's Second Law?
 
 \begin{choices}
-\choice $\vb{F} = m \vb{a}$
+\correctchoice $\vb{F} = m \vb{a}$
 \choice $S = k_\text{B} \ln\Omega$
 \choice $p_x = (\hbar/i) \partial_x$
 \choice $v_x = \difs xt$
 \end{choices}
 \droppoints
+% --------------------------------------------------------------------------
+
+
+%------------ Question with multiple choice and checkboxes -------------------
+\question[10] \label{ques:questionmcbox}
+This is a multiple choice question with checkboxes. What is Newton's Second Law?
+
+\begin{checkboxes}
+\correctchoice $\vb{F} = m \vb{a}$
+\choice $S = k_\text{B} \ln\Omega$
+\choice $p_x = (\hbar/i) \partial_x$
+\choice $v_x = \difs xt$
+\end{checkboxes}
+\droppoints
+% --------------------------------------------------------------------------
+
+
+%------- Question with multiple choice and checkboxes in one line ----------
+\question[10] \label{ques:questionmclinebox}
+This is a multiple choice question with checkboxes, but the choices all one line to save space. The correct choice will print when answers is enabled in the preamble. What is Newton's Second Law?
+
+\begin{oneparcheckboxes}
+\correctchoice $\vb{F} = m \vb{a}$
+\choice $S = k_\text{B} \ln\Omega$
+\choice $p_x = (\hbar/i) \partial_x$
+\choice $v_x = \difs xt$
+\end{oneparcheckboxes}
+\droppoints
+% --------------------------------------------------------------------------
+
+
+%------------ Question with fill in the blank -------------------
+\question[10] \label{ques:questionfillin}
+This is a fill in the blank question. Again, the answer is noted in the question. Here's the question: 
+The next total solar eclipse visible in the US is in the month of \fillin[April].
+\droppoints
+% --------------------------------------------------------------------------
+
+
+%------------ Question true/false -------------------
+\question[10] \label{ques:questiontf}
+\tf[T] This is true/false question. The world is not enough.
+\droppoints
+% --------------------------------------------------------------------------
+
+
+%------------ Question with a figure -------------------
+\question[10] \label{ques:questionfig}
+This is a question with a figure.
+
+    \begin{minipage}[t]{\linewidth}
+        \centering
+        \includegraphics[scale=0.5]{fig.pdf}
+        \captionof{figure}{This is a figure caption.}
+    \end{minipage}
+    
+\begin{parts}
+\part[5]\label{ques:partaf} The first part of the question.
+\droppoints
+
+\part[15]\label{ques:partbf} The second part.
+\droppoints
+
+\part[5]\label{ques:partcf} The third part. Add or subtract parts as needed.
+\droppoints
+\end{parts}
+\droptotalpoints
+
 
 \begin{solution}
-The answer is A.
+The solution goes here.
+\begin{parts}
+\part The solution goes here.
+
+\part The solution goes here.
+
+\part The solution goes here.
+\end{parts}
 \end{solution}
-  
+% --------------------------------------------------------------------------
+
+
+ 
 \end{questions}
 
 %%%%%%%%%% END QUESTIONS %%%%%%%%%%
